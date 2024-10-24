@@ -9,7 +9,7 @@
 1. Place `main.py` and `model.pth` into your code editor.
 2. Install the required dependencies by running the following command:
    ```bash
-   pip install kivy[full] kivymd torch torchvision opencv-python Pillow numpy mediapipe matplotlib```
+   pip install kivy[full] kivymd torch torchvision opencv-python Pillow numpy mediapipe matplotlib
 3. Run main.py
      ```bash
-     python main.py```
+     python main.py
