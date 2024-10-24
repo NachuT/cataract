@@ -10,3 +10,6 @@
 2. Install the required dependencies by running the following command:
    ```bash
    pip install kivy[full] kivymd torch torchvision opencv-python Pillow numpy mediapipe matplotlib```
+3. Run main.py
+     ```bash
+     python main.py```
