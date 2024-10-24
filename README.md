@@ -1,9 +1,12 @@
-**Cata-Detect**
-Know your eyes
+### **Cata-Detect**
+**Know Your Eyes**
 
-Cataract detrection algorithm using CNNs + Vision testing
+**Cataract Detection Algorithm Using CNNs + Vision Testing**
 
-To run:
-1.take main.py and model.pth into your code editor 
-2.pip install kivy[full] kivymd torch torchvision opencv-python Pillow numpy mediapipe matplotlib
-3.run main.py
+---
+
+### To Run the Application:
+1. Place `main.py` and `model.pth` into your code editor.
+2. Install the required dependencies by running the following command:
+   ```bash
+   pip install kivy[full] kivymd torch torchvision opencv-python Pillow numpy mediapipe matplotlib```
