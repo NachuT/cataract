@@ -6,8 +6,6 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 
-
-# Define the CNN model
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
@@ -16,7 +14,7 @@ class CNN(nn.Module):
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
         self.conv4 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
-        self.fc1 = nn.Linear(128 * 9 * 9, 512)  # Adjust based on input size
+        self.fc1 = nn.Linear(128 * 9 * 9, 512)
         self.fc2 = nn.Linear(512, 1)
         self.sigmoid = nn.Sigmoid()
 
@@ -31,34 +29,28 @@ class CNN(nn.Module):
         x = self.sigmoid(x)
         return x
 
-
-# Define transformations for data augmentation and normalization
 transform = transforms.Compose([
     transforms.Resize((150, 150)),
     transforms.ToTensor(),
-    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))  # Mean and std dev for normalization
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ])
 
-# Load training and validation datasets
 train_dataset = datasets.ImageFolder(root='/Users/nachuthenappan/PycharmProjects/pythonProject/processed_images/train', transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
 val_dataset = datasets.ImageFolder(root='/Users/nachuthenappan/PycharmProjects/pythonProject/processed_images/test', transform=transform)
 val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
-# Initialize the model, criterion, and optimizer
-device = torch.device("cpu")  # Explicitly use CPU
+device = torch.device("cpu")
 model = CNN().to(device)
-criterion = nn.BCELoss()  # Binary Cross Entropy loss for binary classification
+criterion = nn.BCELoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-# Training loop
 num_epochs = 10
 train_loss_history = []
 val_loss_history = []
 train_accuracy_history = []
 val_accuracy_history = []
-
 
 def compute_accuracy(loader):
     correct = 0
@@ -68,11 +60,10 @@ def compute_accuracy(loader):
         for inputs, labels in loader:
             inputs, labels = inputs.to(device), labels.to(device)
             outputs = model(inputs)
-            predictions = (outputs.squeeze() > 0.5).float()  # Threshold at 0.5 for binary classification
+            predictions = (outputs.squeeze() > 0.5).float()
             correct += (predictions == labels).sum().item()
             total += labels.size(0)
     return correct / total
-
 
 for epoch in range(num_epochs):
     model.train()
@@ -94,7 +85,6 @@ for epoch in range(num_epochs):
     train_accuracy_history.append(train_accuracy)
     print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Train Accuracy: {train_accuracy:.4f}")
 
-    # Validation
     model.eval()
     running_val_loss = 0.0
     with torch.no_grad():
@@ -110,7 +100,6 @@ for epoch in range(num_epochs):
     val_accuracy_history.append(val_accuracy)
     print(f"Validation Loss: {epoch_val_loss:.4f}, Validation Accuracy: {val_accuracy:.4f}")
 
-# Plot training and validation loss
 plt.figure(figsize=(12, 5))
 
 plt.subplot(1, 2, 1)
